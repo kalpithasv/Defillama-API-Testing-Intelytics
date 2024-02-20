@@ -13,12 +13,17 @@ const DefiStats = () => {
         const response = await axios.get('https://api.llama.fi/protocols');
         const protocols = response.data;
         console.log(protocols);
-        const protocolId = "3965";
-        const dojoswap = protocols.find((protocol) => protocol.id === protocolId);
+        const dojoswapId = "3965";
+        const hydroprotocolId = "4084";
+        const astroportId = "3117";
+        const helixId = "2259";
+        const dojoswap = protocols.find((protocol) => protocol.id === dojoswapId);
         console.log(dojoswap);
         const totalTvl = dojoswap.tvl;
-        const totalChange = dojoswap.change_1d;
-        setStats({ tvl: totalTvl, change: totalChange });
+        const oneDayChange = dojoswap.change_1d;
+        const oneHourChange = dojoswap.change_1h;
+        const sevenDayChange = dojoswap.change_7d;
+        setStats({ tvl: totalTvl, change: oneDayChange });
       } catch (error) {
         setError(error);
       } finally {
