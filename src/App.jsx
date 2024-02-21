@@ -12,9 +12,9 @@ import axios from 'axios';
 
  Data That will be collected from this API:
  - TVL (Total Value Locked)
- - Change-1d (Change in TVL over the last 24 hours)
- - Change-7d (Change in TVL over the last 7 days)
- - Change-1h (Change in TVL over the last 1 hour)
+ - Change-1d (Change in TVL over the last 24 hours) - change_1d
+ - Change-7d (Change in TVL over the last 7 days) - change_7d
+ - Change-1h (Change in TVL over the last 1 hour) - change_1h
 
  Volume data will be collected from the following endpoints:
 
