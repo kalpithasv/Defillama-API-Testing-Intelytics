@@ -1,6 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+/* DeFi Llama API Endpoints
+ Protocol Endpoints: https://api.llama.fi/protocols
+
+ Use these ids to get the data for the specific protocol:
+  dojoswapId = "3965";
+  hydroprotocolId = "4084";
+  astroportId = "3117";
+  helixId = "2259";
+
+ Data That will be collected from this API:
+ - TVL (Total Value Locked)
+ - Change-1d (Change in TVL over the last 24 hours)
+ - Change-7d (Change in TVL over the last 7 days)
+ - Change-1h (Change in TVL over the last 1 hour)
+
+ Volume data will be collected from the following endpoints:
+
+ Astroprt Volume Endpoint : https://api.llama.fi/summary/dexs/astroport?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume;
+ Helix Volume Endpoint : https://api.llama.fi/summary/dexs/helix?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume;
+
+ Data to be accessed from the volume endpoints:
+ total14dto7d - Total volume of protocol over the last 7 days.
+ total24h - Total volume of protocol over the last 24 hours.
+ total48hto24h -  The total trading volume of the protocol calculated from 48 hours ago to 24 hours ago. This gives you the volume for the day before yesterday.
+
+*/
+
 const DefiStats = () => {
   const [stats, setStats] = useState({ tvl: null, change: null });
   const [isLoading, setIsLoading] = useState(false);
@@ -11,6 +38,14 @@ const DefiStats = () => {
       setIsLoading(true);
       try {
         const response = await axios.get('https://api.llama.fi/protocols');
+        const response2 = await axios.get("https://api.llama.fi/summary/dexs/astroport?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume");
+        // Volume API Testing.
+        const astroportVolume = response2.data;
+        console.log(astroportVolume);
+        const astroport24hVolume = astroportVolume.total24h;
+        console.log(astroport24hVolume);
+
+        // Protocol (TVL) API Testing.
         const protocols = response.data;
         console.log(protocols);
         const dojoswapId = "3965";
@@ -30,7 +65,6 @@ const DefiStats = () => {
         setIsLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
