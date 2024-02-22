@@ -39,11 +39,23 @@ const DefiStats = () => {
       try {
         const response = await axios.get('https://api.llama.fi/protocols');
         const response2 = await axios.get("https://api.llama.fi/summary/dexs/astroport?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume");
+        const response3 = await axios.get("https://api.llama.fi/summary/dexs/helix?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume");
         // Volume API Testing.
         const astroportVolume = response2.data;
-        console.log(astroportVolume);
         const astroport24hVolume = astroportVolume.total24h;
+        const astroport7dVolume = astroportVolume.total14dto7d;
+        const astroport48hVolume = astroportVolume.total48hto24h;
         console.log(astroport24hVolume);
+        console.log(astroport7dVolume);
+
+        const helixVolume = response3.data;
+        const helix24hVolume = helixVolume.total24h;
+        const helix7dVolume = helixVolume.total14dto7d;
+        const helix48hVolume = helixVolume.total48hto24h;
+        console.log(helix24hVolume);
+        console.log(helix7dVolume);
+
+      
 
         // Protocol (TVL) API Testing.
         const protocols = response.data;
@@ -58,6 +70,10 @@ const DefiStats = () => {
         const oneDayChange = dojoswap.change_1d;
         const oneHourChange = dojoswap.change_1h;
         const sevenDayChange = dojoswap.change_7d;
+
+          // DojoSwap Staking Value
+          const dojoswapStaking = dojoswap.staking;
+          console.log(dojoswapStaking);
         setStats({ tvl: totalTvl, change: oneDayChange });
       } catch (error) {
         setError(error);
