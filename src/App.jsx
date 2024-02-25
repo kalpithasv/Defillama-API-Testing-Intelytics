@@ -41,7 +41,7 @@ const DefiStats = () => {
         const response2 = await axios.get("https://api.llama.fi/summary/dexs/astroport?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume");
         const response3 = await axios.get("https://api.llama.fi/summary/dexs/helix?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume");
         const response4 = await axios.get("https://api.llama.fi/v2/chains");
-        const response5 = await axios.get("https://coins.llama.fi/prices/current/ethereum:0xe28b3b32b6c345a34ff64674606124dd5aceca30?searchWidth=4h");
+        const response5 = await axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en");
         // Volume API Testing.
         const astroportVolume = response2.data;
         const astroport24hVolume = astroportVolume.total24h;
@@ -57,9 +57,13 @@ const DefiStats = () => {
         console.log(helix24hVolume);
         console.log(helix7dVolume);
 
-        const coinPrice = response5.data;
-        console.log(coinPrice);
-      
+        // Coingecko API 
+        const coingeckoAPI = response5.data;
+        const injectiveCoin = coingeckoAPI.find((coin) => coin.id === "injective-protocol");
+        const injectivePrice = injectiveCoin.current_price;
+        const injectiveMarketCap = injectiveCoin.market_cap;
+        console.log(injectivePrice);
+        console.log(injectiveMarketCap);
 
         // Injective TVL
 
