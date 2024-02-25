@@ -41,6 +41,7 @@ const DefiStats = () => {
         const response2 = await axios.get("https://api.llama.fi/summary/dexs/astroport?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume");
         const response3 = await axios.get("https://api.llama.fi/summary/dexs/helix?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume");
         const response4 = await axios.get("https://api.llama.fi/v2/chains");
+        const response5 = await axios.get("https://coins.llama.fi/prices/current/ethereum:0xe28b3b32b6c345a34ff64674606124dd5aceca30?searchWidth=4h");
         // Volume API Testing.
         const astroportVolume = response2.data;
         const astroport24hVolume = astroportVolume.total24h;
@@ -56,6 +57,10 @@ const DefiStats = () => {
         console.log(helix24hVolume);
         console.log(helix7dVolume);
 
+        const coinPrice = response5.data;
+        console.log(coinPrice);
+      
+
         // Injective TVL
 
         const chains = response4.data;
@@ -64,7 +69,8 @@ const DefiStats = () => {
         console.log(injective);
         const injectiveTvl = injective.tvl;
         console.log(injectiveTvl);
-      
+
+       
 
         // Protocol (TVL) API Testing.
         const protocols = response.data;
@@ -104,7 +110,6 @@ const DefiStats = () => {
           <h2>Overall Defi Statistics</h2>
           <p>Total Value Locked (TVL): ${stats.tvl}</p>
           <p>change-1d: ${stats.change}</p>
-          <iframe width="640px" height="360px" src="https://defillama.com/chart/protocol/dojoswap-amm?&theme=dark" title="DefiLlama" frameborder="0"></iframe>
         </>
       )}
     </div>
